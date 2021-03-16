@@ -5,25 +5,26 @@
     #B - imprima o nome do processo e seu PID;
     #C - imprima também o percentual de uso de CPU e de uso de memória.
     
+
 import psutil, sys
 
 
 def memory_percent():
-    memory = round(pid.memory_percent(), 2)
-    return memory
+    return round(pid.memory_percent(), 2)
 
 
 def cpu_percent():
-    c = int(pid.cpu_percent(interval=1))
-    return c
+    return int(pid.cpu_percent(interval=1))
 
 try:
     processes = psutil.pids()
+    
     for process in processes:      
         pid = psutil.Process(process)
         name = pid.name()                
         memo = memory_percent()
         c = cpu_percent()
+        
         print("Nome: {:<20} Pid: {:<10} Memória: {:>5}% CPU: {:>5}%".format(name, process, memo, c))
 
 except Exception as NoSuchProcess:
