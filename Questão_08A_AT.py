@@ -26,19 +26,20 @@ def fatorial(n):
 create_list(n)
 
 
-t_init = float(time.time())
+def execution_time():
+    t_init = float(time.time())
 
-for i in A:
-    fatorial(i)
-    #print
+    for i in A:
+        fatorial(i)
+        
+    t_end = float(time.time())
+
+    #print(A)
+    #print(B)
+    print('Início:',t_init)
+    print('Fim:',t_end)
+    tt = t_end - t_init
+    print('Tempo total:', round(tt,2),'segundos.')
     
-t_end = float(time.time())
-
-#print(A)
-#print(B)
-
-
-print('Início:',t_init)
-print('Fim:',t_end)
-tt = t_end - t_init
-print('Tempo total:', round(tt,2),'segundos.')
+    
+execution_time()
