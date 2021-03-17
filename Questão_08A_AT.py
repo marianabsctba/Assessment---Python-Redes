@@ -23,8 +23,6 @@ def fatorial(n):
         B.append(fat)
     return B
 
-create_list(n)
-
 
 def execution_time():
     t_init = float(time.time())
@@ -42,4 +40,5 @@ def execution_time():
     print('Tempo total:', round(tt,2),'segundos.')
     
     
+create_list(n)
 execution_time()
