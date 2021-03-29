@@ -1,33 +1,41 @@
-import os
-import pickle
-import socket
+import os, pickle, socket
+    
+# compreensão de listas a fim de enviar apenas os nomes dos arquivos do nome do diretório recebido pelo cliente
 
-#server
-def GetFiles(dir):
+def get_files(dir):
     if os.path.exists(dir):
-        return os.listdir(dir)
+        list_files = [f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir,f))]        
+        return list_files  
+    
     else:
-        return 'O diretório não existe.'
+        return f'O diretório {dir} não existe. Tente novamente.'
+    
+    
+def server():    
+    # socket servidor    
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host, port = (socket.gethostname(), 9999)
 
+    s.bind((host, port))
+    s.listen()
+    
+    print(f"Servidor {host} escutando na porta {port}...")
+    (socket_cliente, addr) = s.accept()
+    
+    print(f"Servidor {host} conectado a:", str(addr))
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # recebe nome do diretório do cliente:
+    msg_recv = socket_cliente.recv(1024)  
+    client_msg = msg_recv.decode('ascii')
 
-host, port = (socket.gethostname(), 5000)
+    # envia resposta ao cliente contendo apenas os arquivos do diretório escolhido...
+    data = pickle.dumps(get_files(client_msg))
+    print("Enviando dados com tamanho {}...".format(len(data)))
+    socket_cliente.send(data)
 
-s.bind((host, port))
-s.listen()
-print(f"Listening to server %{host}, in port %{port}")
+    print("Os dados foram enviados ao cliente...")
+    socket_cliente.close()
+    
 
-(socket_cliente, addr) = s.accept()
-print("Conectado a:", str(addr))
-
-# Recebe pedido do cliente:
-
-msg = socket_cliente.recv(2048)  # Aqui eu recebo a mensagem codificada
-mensagem = msg.decode('ascii')  # Aqui eu transformo em string para comparação
-
-print(GetFiles(mensagem))
-envio = pickle.dumps(GetFiles(mensagem))
-socket_cliente.send(envio)
-#    socket_cliente.close()
-#    socket_servidor.close()
+if __name__ == '__main__':
+    server()
