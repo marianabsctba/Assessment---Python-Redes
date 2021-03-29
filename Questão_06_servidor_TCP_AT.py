@@ -1,6 +1,5 @@
 import os, pickle, socket
     
-# compreensão de listas a fim de enviar apenas os nomes dos arquivos do nome do diretório recebido pelo cliente
 
 def get_files(dir):
     if os.path.exists(dir):
@@ -24,11 +23,11 @@ def server():
     
     print(f"Servidor {host} conectado a:", str(addr))
 
-    # recebe nome do diretório do cliente:
+    # recebe pedido do cliente:
     msg_recv = socket_cliente.recv(1024)  
     client_msg = msg_recv.decode('ascii')
 
-    # envia resposta ao cliente contendo apenas os arquivos do diretório escolhido...
+    # envia arquivos ao cliente
     data = pickle.dumps(get_files(client_msg))
     print("Enviando dados com tamanho {}...".format(len(data)))
     socket_cliente.send(data)
@@ -39,3 +38,4 @@ def server():
 
 if __name__ == '__main__':
     server()
+
