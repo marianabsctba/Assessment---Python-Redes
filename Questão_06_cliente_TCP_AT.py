@@ -5,6 +5,9 @@
 
 import socket, pickle
 
+def lin():
+    # linhas apenas para separação
+    print('==' * 20)
 
 def client():    
     #socket cliente
@@ -14,14 +17,15 @@ def client():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
     
+    lin()
     diret = input('Qual o nome do diretório? ')
     s.send(diret.encode('ascii'))
 
     request = b''
     
-    while True:   # faz o controle dos dados recebidos do servidor (converte espaços vazios)    
+    while True:       
         data = s.recv(1024);
-        print('Dados recebidos do servidor...')        
+        print('Dados recebidos do servidor...')
         if not data: break
         request = request + data                
     
@@ -29,10 +33,17 @@ def client():
     s.close()
    
     if data == list(data):
+        lin()
+        print(f'Arquivos do diretório {diret}:')
+        lin()
         for i in data:
             print(i)
+        lin()
+        
     else:
+        lin()
         print(data)
+        lin()
     
         
 
