@@ -5,7 +5,6 @@
 
 import socket, pickle
 
-#SOCKET CLIENTE
 
 def client():    
     #socket cliente
