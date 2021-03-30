@@ -1,5 +1,5 @@
 
-def inverse_text():
+def reversed_file():
     words = []
     try:
         with open('questao4.txt', 'r') as file:
@@ -16,4 +16,4 @@ def inverse_text():
         print(error)
 
 
-inverse_text()
+reversed_file()
