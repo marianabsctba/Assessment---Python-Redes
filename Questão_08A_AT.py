@@ -37,7 +37,7 @@ def execution_time():
     print('Início:',t_init)
     print('Fim:',t_end)
     tt = t_end - t_init
-    print('Tempo total:', round(tt,2),'segundos.')
+    print('Tempo total sequencial:', round(tt,2),'segundos.')
     
     
 create_list(n)
