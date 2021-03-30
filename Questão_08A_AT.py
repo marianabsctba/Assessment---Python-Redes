@@ -21,7 +21,6 @@ def time_execution():
     for i in A:
         B.append(factorial(i))
 
-    #tempo final
     end = float(time.time())    
     elapsed = end - start
 
