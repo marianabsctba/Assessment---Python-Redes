@@ -18,8 +18,8 @@ def recv_msg():
     print('{:<10}'.format('Total') + '{:<10}'.format('Livre (disponível)'))
     lin()
     
-    for j in lista:
-        print('{:<10}'.format(j), end=' ')
+    for i in lista:
+        print('{:<10}'.format(i), end=' ')
         
 
 #socket cliente
