@@ -1,5 +1,6 @@
 import multiprocessing, time, random
 
+#usando maneira mais longa de cálculo
 
 N = 50000
 
