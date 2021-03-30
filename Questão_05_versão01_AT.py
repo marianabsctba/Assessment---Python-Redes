@@ -29,7 +29,7 @@ def lis(first_list):
     return second_list
 
         
-a = files('c.txt')
+a = files('a.txt')
 b = files('b.txt')
 
 print('A:', a)
