@@ -4,23 +4,20 @@
 
 import os, platform, subprocess
 
+user_file = (input("Qual arquivo de texto você deseja abrir? ") + ".txt")  #observação: não tenho linux nem mac para testar, infelizmente.
 
-user_file = (input("Qual arquivo de texto você deseja abrir? ") + ".txt")
-
+platformer = platform.system()
     
-def open_file_notepad(user_file):
-    if os.path.exists(user_file):         
-        platformer = platform.system()
+def open_file_notepad(): 
+    try:    
+        if platformer == 'Darwin':       #MACOS
+            subprocess.call(('open', user_file))
+        elif platformer == 'Windows':    #windows notepad
+            os.system(f"notepad {user_file}") 
+        else:                                   
+            subprocess.call(('xdg-open', user_file)) #Linux
+    except FileNotFoundError as e:
+        print(e)
         
-        if platformer == "Windows":
-            print("Sistema Operacional: ", platformer)
-            os.system(f"notepad {user_file}")            
-        else:
-            print("Sistema Operacional: ", platformer)
-            subprocess.Popen(['APP_COMMAND', f'~/{user_file}'])    
-    else:
-        print(f'O arquivo {user_file} não existe ou não é um arquivo. Tente novamente.')
-        exit(1)
-            
         
-open_file_notepad(user_file)
+open_file_notepad()
