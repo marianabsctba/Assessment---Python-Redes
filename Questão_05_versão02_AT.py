@@ -11,7 +11,7 @@ def lining():
 
 def sum_data_files(): 
 
-    lines, cols = 1, 10      
+    lines, cols = 1, 10      # partindo do pressuposto em se sabendo número de linhas e colunas
     sums = [[0] * cols for _ in range(lines)]
 
     files_names = ["a.txt", "b.txt"]
