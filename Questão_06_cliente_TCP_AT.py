@@ -5,43 +5,47 @@
 
 import socket, pickle
 
-
 def lin():
+    # linhas apenas para separação
     print('==' * 20)
-    
 
-#receber mensagem 
+def client():    
+    #socket cliente
+
+    HOST = socket.gethostname()
+    PORT = 9999
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST, PORT))
     
-def recv_msg():
-    bytes = socket_cliente.recv(1024)
-    lista = pickle.loads(bytes)
+    lin()
+    diret = input('Qual o nome do diretório? ')
+    s.send(diret.encode('ascii'))
+
+    request = b''
     
-    print("Dados recebidos do servidor....")
-    lin()
-    print('Informações de memória:')
-    lin()
-    print('{:<10}'.format('Total') + '{:<10}'.format('Livre (disponível)'))
-    lin()
+    while True:       
+        data = s.recv(1024);
+        print('Dados recebidos do servidor...')
+        if not data: break
+        request = request + data                
     
-    for j in lista:
-        print('{:<10}'.format(j), end=' ')
+    data = pickle.loads(request)
+    s.close()
+   
+    if data == list(data):
+        lin()
+        print(f'Arquivos do diretório {diret}:')
+        lin()
+        for i in data:
+            print(i)
+        lin()
+        
+    else:
+        lin()
+        print(data)
+        lin()
+    
         
 
-#socket cliente
-socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-#tempo (segundos)
-socket_cliente.settimeout(5)
-destino = (socket.gethostname(), 9999)
-msg = ''
-print("Cliente enviando requerimento ao servidor...")
-socket_cliente.sendto(msg.encode('utf8'), destino)
-
-try:
-    for i in range(5):
-        recv_msg()
-        break
-except socket.timeout as error:
-    print(str(error))
-
-input('\nClique em qualquer tecla para sair..')
+if __name__ == '__main__':
+    client()
