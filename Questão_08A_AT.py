@@ -9,8 +9,6 @@ def factorial(n):
         factorial = factorial * i
     return (factorial)
 
-#tempo inicial
-
 
 def time_execution():
     start = float(time.time())
