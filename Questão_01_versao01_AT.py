@@ -14,7 +14,7 @@ def memory_percent():
 
 
 def cpu_percent():
-    return int(pid.cpu_percent(interval=1))
+    return int(pid.cpu_percent(interval=1)) #usei intervalo, sob pena de o valor da CPU restar zerado
 
 try:
     processes = psutil.pids()
