@@ -17,7 +17,6 @@ def open_file_notepad():
         else:                                   
             subprocess.call(('xdg-open', user_file)) #Linux
     except:
-        print('Erro. Tente novamente ou escolha novo arquivo.')
         pass
         
         
