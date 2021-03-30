@@ -1,49 +1,43 @@
-#Questão 08 (C)
+#Questão 08 (C) - versão 02
 
-from multiprocessing import Pool
-import time, random
-
-n = int(input("Digite o tamanho do vetor: "))
-
-
-A = []
-
-B = []
+from multiprocessing import Pool #utilizado o Pool do multiprocessing
+from random import randint
+import time
 
 
-def create_list(n):
-    for i in range(n):
-        c = random.randint(1,10)
-        A.append(c)
-    return A
+N = 50000
 
-def fatorial(n):
-    fat = n
-    for i in range(n-1,1,-1):
-        fat = fat * i
-        B.append(fat)
-    return B
+def factorial(n):
+    factorial = n
+    for i in range(n - 1, 1, -1):
+        factorial = factorial * i
+    return (factorial)
 
 
-def execution_time():   
+def time_execution():
+    A = []
+    for i in range(N):
+        A.append(randint(1, 10))
+
+    B = []
     for i in A:
-        fatorial(i)      
+        B.append(factorial(i))
 
 
-def main():
-    t_init = float(time.time())
+def multiprocess():
+    start = float(time.time())
     
     with Pool(processes=4) as pool: #4 processos
-        e = execution_time()
+        e = time_execution()
 
-    t_end = float(time.time())
+    end = float(time.time())
     
-    print('Início:',t_init)
-    print('Fim:',t_end)
-    tt = t_end - t_init
-    print('Tempo total:', round(tt,2),'segundos.')
+    print('Início:',start)
+    print('Fim:', end)
+    elapsed = end - start
+    print('Tempo total:', round(elapsed, 2),'segundos.')
 
 
 
 if __name__ == "__main__":
-    main()
+    multiprocess()
