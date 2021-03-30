@@ -1,34 +1,34 @@
-#server
-
-import pickle
-import psutil
-import socket
+import socket, psutil, pickle
+from psutil._common import bytes2human
 
 
-def toGB(v):
-    return round(v / 1073741824, 2)
+socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+HOST = socket.gethostname()
+PORT = 9999
+socket_servidor.bind((HOST, PORT))
+print('Servidor', HOST, 'esperando conexão na porta', PORT, '...')
 
 
-def Avalaible():
-    return toGB(psutil.disk_usage(path='C:').free)
 
-def Total():
-    return toGB(psutil.disk_usage(path='C:').total)
+def mem():    
+    resp_list = []
+    
+    mem = psutil.virtual_memory()
+    mt = bytes2human(mem.total)
+    mf = bytes2human(mem.free)
+    
+    resp_list.append(mt)
+    resp_list.append(mf)
+    
+    return resp_list
+    
+    
 
-resposta = ""
-try:
-    udpServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    dest = (socket.gethostname(), 9991)
-    udpServer.bind(dest)
+while True:
+    (msg, client) = socket_servidor.recvfrom(1024)
+    print("Requerimento recebido do cliente...")
+    data = pickle.dumps(mem())
+    socket_servidor.sendto(data, client)
+    print("Enviando dados de memória para cliente...")
 
-    for i in range(0, 5):
-        (msg, host) = udpServer.recvfrom(1024)
-        print(msg.decode())
-        resposta = '{:>8}'.format(str(Avalaible())) + '{:>8}'.format(str(Total())) + "\n"
-        bytes_resp = pickle.dumps(resposta)
-        udpServer.sendto(bytes_resp, host)
-
-except Exception as error:
-    print(error)
-
-udpServer.close()
+socket_servidor.close()
