@@ -9,20 +9,18 @@ user_file = (input("Qual arquivo de texto você deseja abrir? ") + ".txt")
 
     
 def open_file_notepad(user_file):
-    if os.path.isfile(user_file):
-        
+    if os.path.exists(user_file):         
         platformer = platform.system()
         
         if platformer == "Windows":
             print("Sistema Operacional: ", platformer)
-            os.system(f"notepad {user_file}")
-        
+            os.system(f"notepad {user_file}")            
         else:
             print("Sistema Operacional: ", platformer)
-            subprocess.Popen(['APP_COMMAND', f'~/{user_file}'])      
+            subprocess.Popen(['APP_COMMAND', f'~/{user_file}'])    
     else:
-        print(user_file, 'não é um arquivo. Tente novamente')
+        print(f'O arquivo {user_file} não existe ou não é um arquivo. Tente novamente.')
         exit(1)
-        
+            
         
 open_file_notepad(user_file)
