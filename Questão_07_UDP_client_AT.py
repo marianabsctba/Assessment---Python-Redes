@@ -1,28 +1,42 @@
-import socket, pickle, time
+import socket, pickle
 
-#client
 
-# Função que Print a list formatada
-def Print(l):
-    texto = ''
-    for i in l:
-        texto = texto + '{:>8.2f}'.format(i)
-    print(texto)
+def lin():
+    print('==' * 20)
+    
 
+#receber mensagem
+    
+def recv_msg():
+    bytes = socket_cliente.recv(1024)
+    lista = pickle.loads(bytes)
+    
+    print("Dados recebidos do servidor....")
+    lin()
+    print('Informações de memória:')
+    lin()
+    print('{:<10}'.format('Total') + '{:<10}'.format('Livre (disponível)'))
+    lin()
+    
+    for j in lista:
+        print('{:<10}'.format(j), end=' ')
+        
+
+#socket cliente
+socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+#tempo (segundos)
+socket_cliente.settimeout(5)
+destino = (socket.gethostname(), 9999)
+msg = ''
+print("Cliente enviando requerimento ao servidor...")
+socket_cliente.sendto(msg.encode('utf8'), destino)
 
 try:
-    udpClient = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    dest = (socket.gethostname(), 9991)
+    for i in range(5):
+        recv_msg()
+        break
+except socket.timeout as error:
+    print(str(error))
 
-    for i in range(0, 5):
-        udpClient.sendto(f'Pedido {i}'.encode('utf-8'), dest)
-        print(f"Pedido {i}")
-        (msg, host) = udpClient.recvfrom(1024)
-        list = pickle.loads(msg)
-        print('{:>8}'.format('Free') + '{:>8}'.format('Total'))
-        print(list)
-        time.sleep(5)
-
-
-except Exception as error:
-    print(error)
+input('\nClique em qualquer tecla para sair..')
