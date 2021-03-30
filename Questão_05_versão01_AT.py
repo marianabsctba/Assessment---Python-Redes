@@ -11,10 +11,9 @@ def files(file_name):
     try:
         with open(file_name, 'r') as file:
             data = file.read().split()
-        return list(data)
+        return data
     except FileNotFoundError as error:
-        print(str(error))
-        return []
+        return (str(error))
 
 
 def lis(first_list):
@@ -22,13 +21,13 @@ def lis(first_list):
     for v in first_list:
         try:
             second_list.append(int(v))
-        except ValueError:
-            print(v, 'não é um número válido.')
+        except:
+            pass
             second_list.append(0)
     return second_list
 
 
-def sum_files():   
+def sum_files():
     count_a = len(a)
     count_b = len(b)
 
@@ -37,7 +36,8 @@ def sum_files():
     else:
         b[count_b:count_a] = (count_a - count_b) * [0]
 
-    return (np.array(a) + np.array(b)) 
+    print("Soma: ", np.array(a) + np.array(b))
+
 
 
 a = files('a.txt')
@@ -49,4 +49,4 @@ print('B:', b)
 a = lis(a)
 b = lis(b)
 
-print("Soma: ", sum_files()))
+sum_files()
