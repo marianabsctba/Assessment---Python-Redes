@@ -20,11 +20,9 @@ def sum_data_files():
         with open(file) as f:
             for i, lin in enumerate(f):
                 for j, col in enumerate(lin.split()):
-                    sums[i][j] += int(col)
+                    sums[i][j] += int(col)                    
                     
-                    
-    lining()
-    
+    lining()    
     print("O resultado da soma dos números dos arquivos", files_names[0], "e", files_names[1], "é: ")
     
     for lin in sums:
