@@ -16,8 +16,8 @@ def open_file_notepad():
             os.system(f"notepad {user_file}") 
         else:                                   
             subprocess.call(('xdg-open', user_file)) #Linux
-    except FileNotFoundError as e:
-        print(e)
+    except:
+        print('Erro. Tente novamente ou escolha novo arquivo.")
         
         
 open_file_notepad()
