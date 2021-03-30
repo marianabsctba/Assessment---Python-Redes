@@ -1,44 +1,35 @@
-#Questão 08 (A)
+from random import randint
+import time
 
-import time, random
+N = 50000
 
-n = int(input("Digite o tamanho do vetor: "))
+def factorial(n):
+    factorial = n
+    for i in range(n - 1, 1, -1):
+        factorial = factorial * i
+    return (factorial)
 
-
-A = []
-
-B = []
-
-
-def create_list(n):
-    for i in range(n):
-        c = random.randint(1,10)
-        A.append(c)
-    return A
-
-def fatorial(n):
-    fat = n
-    for i in range(n-1,1,-1):
-        fat = fat * i
-        B.append(fat)
-    return B
+#tempo inicial
 
 
-def execution_time():
-    t_init = float(time.time())
+def time_execution():
+    start = float(time.time())
 
+    A = []
+    for i in range(N):
+        A.append(randint(1, 10))
+
+    B = []
     for i in A:
-        fatorial(i)
-        
-    t_end = float(time.time())
+        B.append(factorial(i))
 
-    #print(A)
-    #print(B)
-    print('Início:',t_init)
-    print('Fim:',t_end)
-    tt = t_end - t_init
-    print('Tempo total sequencial:', round(tt,2),'segundos.')
+    #tempo final
+    end = float(time.time())    
+    elapsed = end - start
+
+    print('Tempo inicial: ', start)
+    print('Tempo final: ', end)
+    print('Tempo total sequencial: ', round(elapsed, 2), 'segundos.')
     
-    
-create_list(n)
-execution_time()
+
+time_execution()
