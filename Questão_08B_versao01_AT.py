@@ -1,5 +1,5 @@
 import threading, time
-from random import randint  #realizando o cálculo comum das threadings
+from random import randint  
 
 
 def lin():
