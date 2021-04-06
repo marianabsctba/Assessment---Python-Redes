@@ -7,7 +7,7 @@ def lin():
 
 def print_time():
     lin()
-    print("== EXECUÇÃO SEQUENCIAL ==")
+    print(f"=== EXECUÇÃO SEQUENCIAL : {N} ===")
     lin()
     print('Tempo inicial: ', start, 'segundos.')
     print('Tempo final: ', end, 'segundos.')
@@ -40,5 +40,3 @@ elapsed = end - start
 
 
 print_time()
-
-
