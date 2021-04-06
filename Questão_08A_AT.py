@@ -3,6 +3,23 @@ import time
 
 N = 50000
 
+A = []
+B = []
+
+def lin():
+    print("==" * 30)
+
+
+def print_time():
+    lin()
+    print("== EXECUÇÃO SEQUENCIAL ==")
+    lin()
+    print('Tempo inicial: ', start, 'segundos.')
+    print('Tempo final: ', end, 'segundos.')
+    print('Tempo total: ', elapsed, 'segundos.')
+    lin()
+    
+    
 def factorial(n):
     factorial = n
     for i in range(n - 1, 1, -1):
@@ -10,23 +27,19 @@ def factorial(n):
     return (factorial)
 
 
-def time_execution():
-    start = float(time.time())
+start = float(time.time())
 
-    A = []
-    for i in range(N):
-        A.append(randint(1, 10))
+for i in range(N):
+    A.append(randint(1, 10))
 
-    B = []
-    for i in A:
-        B.append(factorial(i))
+for i in A:
+    B.append(factorial(i))
 
-    end = float(time.time())    
-    elapsed = end - start
+end = float(time.time())
 
-    print('Tempo inicial: ', start)
-    print('Tempo final: ', end)
-    print('Tempo total sequencial: ', round(elapsed, 2), 'segundos.')
-    
+elapsed = end - start
 
-time_execution()
+
+print_time()
+
+
