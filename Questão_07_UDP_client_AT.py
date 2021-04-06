@@ -26,11 +26,11 @@ def recv_msg():
 socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 #tempo (segundos)
-socket_cliente.settimeout(5)
 destino = (socket.gethostname(), 9999)
 msg = ''
 print("Cliente enviando requerimento ao servidor...")
 socket_cliente.sendto(msg.encode('utf8'), destino)
+socket_cliente.settimeout(5)
 
 try:
     for i in range(5):
