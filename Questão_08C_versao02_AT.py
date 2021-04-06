@@ -1,5 +1,3 @@
-#Questão 08 (C) - versão 02
-
 from multiprocessing import Pool #utilizado o Pool do multiprocessing
 from random import randint
 import time
@@ -24,20 +22,16 @@ def time_execution():
         B.append(factorial(i))
 
 
-def multiprocess():
-    start = float(time.time())
+if __name__ == "__main__":
     
+    start = float(time.time())
+
     with Pool(processes=4) as pool: #4 processos
         e = time_execution()
 
     end = float(time.time())
-    
+
     print('Início:',start)
     print('Fim:', end)
     elapsed = end - start
     print('Tempo total:', round(elapsed, 2),'segundos.')
-
-
-
-if __name__ == "__main__":
-    multiprocess()
