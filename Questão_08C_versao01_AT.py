@@ -1,14 +1,19 @@
 import multiprocessing, time, random
 
-#usando maneira mais longa de cálculo
 
-N = 50000
+def lin():
+    print("==" * 30)
 
-A = []
 
-B = []
+def print_time():
+    lin()
+    print(f"=== EXECUÇÃO MULTIPROCESSO : {N} ===")
+    lin()
+    print('Tempo inicial: ', start, 'segundos.')
+    print('Tempo final: ', end, 'segundos.')
+    print('Tempo total: ', elapsed, 'segundos.')
+    lin()
 
-P = []
 
 def factorial(n):
     factorial = n
@@ -24,18 +29,29 @@ def calc_fact(lis, Q):
     Q.put(B)
 
 
+A = []
 
-def multiprocess():
-    start = float(time.time())
+B = []
+
+if __name__ == "__main__":
     
+    N = 50000
+
+    P = []
+
+    init_q = 0
+    
+    c = 1
+    
+    num_process = 4
+    
+    q_end = multiprocessing.Queue()
+
+    start = float(time.time())
+
     for i in range(N):
         A.append(random.randint(1, 10))
-    
-    init_q = 0
-    c = 1
-    num_process = 4
-    q_end = multiprocessing.Queue()
-    
+
     for i in range(num_process):
         end_q = int((N // num_process) * c)
         p = multiprocessing.Process(target=calc_fact, args=(A[init_q:end_q], q_end))
@@ -51,13 +67,9 @@ def multiprocess():
     for i in range(0, num_process):
         for i in q_end.get():
             B.append(i)
-    
+
     end = float(time.time())
     elapsed = end - start
+    
+    print_time()
         
-    print('Início:',start)
-    print('Fim:', end)
-    print('Tempo total:', round(elapsed, 2),'segundos.')
-
-if __name__ == "__main__":
-    multiprocess()
