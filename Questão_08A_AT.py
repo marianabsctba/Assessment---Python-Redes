@@ -1,11 +1,6 @@
 from random import randint
 import time
 
-N = 50000
-
-A = []
-B = []
-
 def lin():
     print("==" * 30)
 
@@ -26,6 +21,10 @@ def factorial(n):
         factorial = factorial * i
     return (factorial)
 
+N = 50000
+
+A = []
+B = []
 
 start = float(time.time())
 
