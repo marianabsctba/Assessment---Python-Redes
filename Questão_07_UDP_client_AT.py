@@ -1,6 +1,5 @@
 import socket, pickle
 
-
 def lin():
     print('==' * 20)
     
@@ -25,18 +24,21 @@ def recv_msg():
 #socket cliente
 socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-#tempo (segundos)
 destino = (socket.gethostname(), 9999)
-msg = ''
-print("Cliente enviando requerimento ao servidor...")
-socket_cliente.sendto(msg.encode('utf8'), destino)
+
 socket_cliente.settimeout(5)
 
 try:
-    for i in range(5):
-        recv_msg()
-        break
-except socket.timeout as error:
-    print(str(error))
-
-input('\nClique em qualquer tecla para sair..')
+    msg = ''
+    print("Cliente enviando requerimento ao servidor...")
+    socket_cliente.sendto(msg.encode('utf8'), destino)
+    recv_msg()
+except:
+    print("Cliente não conseguiu receber os dados... Tentando novamente")
+    try:
+        for i in range(5):
+            recv_msg()
+    except socket.timeout as error:
+        print(str(error))
+finally:
+    socket_cliente.close()
