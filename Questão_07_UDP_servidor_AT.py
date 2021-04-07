@@ -1,4 +1,4 @@
-import socket, psutil, pickle
+import socket, psutil, pickle, time
 from psutil._common import bytes2human
 
 def mem():    
@@ -6,13 +6,10 @@ def mem():
     
     mem = psutil.virtual_memory()
     mt = bytes2human(mem.total)
-    mf = bytes2human(mem.free)
-    
+    mf = bytes2human(mem.free)    
     resp_list.append(mt)
-    resp_list.append(mf)
-    
-    return resp_list
-    
+    resp_list.append(mf)    
+    return resp_list   
 
 
 socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -23,10 +20,10 @@ print('Servidor', HOST, 'esperando conexão na porta', PORT, '...')
 
 
 while True:
-    (msg, client) = socket_servidor.recvfrom(1024)
+    (msg, socket_cliente) = socket_servidor.recvfrom(1024)
     print("Requerimento recebido do cliente...")
-    data = pickle.dumps(mem())
-    socket_servidor.sendto(data, client)
     print("Enviando dados de memória para cliente...")
+    data = pickle.dumps(mem())
+    socket_servidor.sendto(data, socket_cliente)
 
 socket_servidor.close()
